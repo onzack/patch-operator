@@ -1,0 +1,17 @@
+# Default values for the patch-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# The target application which the patch-operator has to patch the images
+# This example shows the values for rkm: https://github.com/dmlabs/rkm
+targetApp:
+  name: rkm-outpost
+  repository: quay.io/dmlabs/rkm-outpost
+  namespace: rkm
+  # Simocolon separated list, e.g.:cronjob/name1;deployment/name2;pod/name3
+  components: cronjob/rkm-outpost
+
+operator:
+  schedule: "0 * * * *"
+  repository: quay.io/dmlabs/patch-operator
+  tz: Europe/Zurich

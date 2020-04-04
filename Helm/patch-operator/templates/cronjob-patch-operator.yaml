@@ -1,0 +1,53 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    app: {{ .Values.targetApp.name }}
+    role: patch-operator
+  name: {{ .Values.targetApp.name }}-patch-operator
+spec:
+  schedule: {{ .Values.operator.schedule | quote }}
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: {{ .Values.targetApp.name }}
+            role: patch-operator
+        spec:
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+            fsGroup: 10000
+          containers:
+          - name: patch-operator
+            image: {{ .Values.operator.repository }}:latest
+            imagePullPolicy: Always
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                memory: "20Mi"
+                cpu: "20m"
+              limits:
+                memory: "50Mi"
+                cpu: "100m"
+            env:
+              - name: TZ
+                value: {{ .Values.operator.tz | default "Europe/Zurich" | quote }}
+              - name: REPOSITORY
+                value: {{ .Values.targetApp.repository }}
+              - name: K8S_NAMESPACE
+                value: {{ .Values.targetApp.namespace }}
+              - name: COMPONENTS
+                value: {{ .Values.targetApp.components }}
+          restartPolicy: OnFailure
+          serviceAccountName: {{ .Values.targetApp.name }}-patch-operator

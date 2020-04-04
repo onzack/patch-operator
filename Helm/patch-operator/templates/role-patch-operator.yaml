@@ -1,0 +1,16 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app: {{ .Values.targetApp.name }}
+    role: patch-operator
+  name: {{ .Values.targetApp.name }}-patch-operator
+rules:
+- apiGroups:
+  - "batch"
+  resources:
+  - cronjobs
+  verbs:
+  - get
+  - patch
