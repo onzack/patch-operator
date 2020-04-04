@@ -1,5 +1,7 @@
 # patch-operator
-A simple patch operator for Kubernetes to update the image value in resources
+A simple patch operator for Kubernetes to update the image value in resources.  
+The patch-operator uses a simple bash script with `kubectl patch` commands to update the image of a specific resource.  
+The patch-operator is started as a Kubernetes cronJob with a default hourly schedule.
 
 # Licence
 Copyright 2020 dmlabs  
