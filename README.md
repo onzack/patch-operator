@@ -1,20 +1,22 @@
 # patch-operator
-A simple patch operator for Kubernetes to update the image value in resources.  
+A simple patch operator for Kubernetes to update the image value in resources to match the current year and month (YYYY-MM e.g. 2021-01).  
 The patch-operator uses a simple bash script with `kubectl patch` commands to update the image of a specific resource.  
 The patch-operator is started as a Kubernetes cronJob with a default hourly schedule.
+
+This project is in alpha stage.
 
 # Installation
 Install the patch-operator Helm Chart:  
 1. Clone this repository:  
-`git clone https://github.com/dmlabs/patch-operator.git`
+`git clone https://github.com/onzack/patch-operator.git`
 2. Adjust values.yaml file:  
-`cp ./rkm/Helm/patch-operator/values.yaml ./custom-values.yaml`  
+`cp ./patch-operator/Helm/patch-operator/values.yaml ./custom-values.yaml`  
 `vim ./custom-values.yaml`
 3. Install Helm Chart:  
-`helm install -f custom-values.yaml -n <target app namespace> patch-operator ./rkm/Helm/patch-operator`
+`helm install -f custom-values.yaml -n <target app namespace> patch-operator ./patch-operator/Helm/patch-operator`
 
 # Licence
-Copyright 2020 dmlabs  
+Copyright 2021 ONZACK  
 
 Licensed under the Apache License, Version 2.0 (the "License");  
 you may not use this file except in compliance with the License.  
