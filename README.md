@@ -3,7 +3,7 @@ A simple patch operator for Kubernetes to update the image value in resources to
 The patch-operator uses a simple bash script with `kubectl patch` commands to update the image of a specific resource.  
 The patch-operator is started as a Kubernetes cronJob with a default hourly schedule.
 
-This project is in alpha stage.
+This project is in alpha stage. Use with caution.
 
 # Installation
 Install the patch-operator Helm Chart:  
@@ -16,7 +16,7 @@ Install the patch-operator Helm Chart:
 `helm install -f custom-values.yaml -n <target app namespace> patch-operator ./patch-operator/Helm/patch-operator`
 
 # Licence
-Copyright 2021 ONZACK  
+Copyright 2021 ONZACK AG
 
 Licensed under the Apache License, Version 2.0 (the "License");  
 you may not use this file except in compliance with the License.  
